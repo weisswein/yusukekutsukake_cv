@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="wrap">
-    <header class="hero">
+    <header class="hero reveal">
       <div class="avatar" aria-hidden="true">YK</div>
       <div>
         <h1>沓掛 由祐（Yusuke Kutsukake）</h1>
@@ -24,7 +24,7 @@
     </header>
 
     <div class="grid">
-      <section id="about">
+      <section id="about" class="reveal">
         <h2><span class="dot"></span>概要</h2>
         <p>
 
@@ -34,7 +34,7 @@
         </p>
       </section>
 
-      <section id="contact">
+      <section id="contact" class="reveal">
         <h2><span class="dot"></span>連絡先</h2>
         <div class="list">
           <div class="item"><div class="time">Mail</div><div><a href="mailto:af21018@shibaura-it.ac.jp">af21018@shibaura-it.ac.jp</a></div></div>
@@ -44,7 +44,7 @@
       </section>
     </div>
 
-    <section id="experience">
+    <section id="experience" class="reveal">
       <h2><span class="dot"></span>職歴・活動</h2>
       <div class="list">
         <div class="item">
@@ -83,7 +83,7 @@
       </div>
     </section>
 
-    <section id="research">
+    <section id="research" class="reveal">
       <h2><span class="dot"></span>研究・発表</h2>
       <div class="list">
         <div class="item"><div class="time">2025</div><div><span class="title">IEEE EMBS Neural Engineering（NER 2025）ポスター採択</span><div class="desc">EEG Source Imaging of Covert Articulation Using a Template Brain</div></div></div>
@@ -91,7 +91,7 @@
       </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="reveal">
       <h2><span class="dot"></span>スキル</h2>
       <div class="skills">
         <div>
@@ -113,7 +113,7 @@
       </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="reveal">
       <h2><span class="dot"></span>プロジェクト</h2>
       <div class="two-col">
         <p><b>XOAD_BOT（Discord ユーザー情報/課金システム連携）</b><br><span class="sub">Python / SQLite / Stripe / VPS</span><br>ロール連携・ユーザーの行動にPoint与奪・Webhook設計。運営の自動化。</p>
@@ -142,7 +142,7 @@
       </div>
     </section>
 
-    <section id="cv">
+    <section id="cv" class="reveal">
       <h2><span class="dot"></span>資料・リンク</h2>
       <ul>
         <li><a href="https://www.facebook.com/story.php?story_fbid=688308346658009&id=100064365506399">AI R&D Internship（ベトナム・ハノイ）｜CO-WELL</a></li>
@@ -161,6 +161,22 @@
     const d=new Date();
     document.getElementById('y').textContent=d.getFullYear();
     document.getElementById('d').textContent=d.toLocaleDateString('ja-JP');
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = document.querySelectorAll('.reveal');
+    if (prefersReducedMotion) {
+      revealEls.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.18, rootMargin: '0px 0px -5% 0px'});
+      revealEls.forEach(el => observer.observe(el));
+    }
   </script>
 </body>
 </html>
