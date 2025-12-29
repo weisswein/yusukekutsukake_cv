@@ -1,6 +1,6 @@
 /* ===== style.css ===== */
 :root{
-  --bg: #0b0c10;
+  --bg: #0d1310;
   --panel: #111217;
   --ink: #e9eef3;
   --muted: #b6c0ca;
@@ -18,11 +18,30 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;}
-body{font-family:var(--sans); background:linear-gradient(180deg, var(--bg), #0b0c10 60%); color:var(--ink); line-height:1.75;}
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(120% 80% at 10% 10%, rgba(106,196,255,.12), transparent 50%),
+    radial-gradient(110% 70% at 90% 0%, rgba(155,226,140,.1), transparent 50%),
+    linear-gradient(180deg, var(--bg), #0f1812 55%, #0b0f0d 100%);
+  color:var(--ink);
+  line-height:1.75;
+}
 a{color:var(--acc); text-decoration:none}
 a:hover{text-decoration:underline}
-.wrap{max-width:1000px; margin:auto; padding:24px;}
-header.hero{display:grid; grid-template-columns: 120px 1fr; gap:20px; align-items:center; margin:16px 0 28px}
+.wrap{max-width:1000px; margin:auto; padding:24px; position:relative; z-index:1}
+.wrap::before, .wrap::after{
+  content:""; position:absolute; inset:-140px 6% auto; height:260px; filter:blur(70px); opacity:.35; z-index:-1;
+  background:
+    radial-gradient(340px 220px at 20% 40%, rgba(106,196,255,.25), transparent 55%),
+    radial-gradient(320px 210px at 78% 55%, rgba(155,226,140,.22), transparent 60%),
+    radial-gradient(300px 180px at 50% 10%, rgba(255,255,255,.05), transparent 65%);
+  pointer-events:none;
+}
+header.hero{display:grid; grid-template-columns: 120px 1fr; gap:20px; align-items:center; margin:16px 0 28px; position:relative; overflow:hidden;}
+header.hero::after{
+  content:""; position:absolute; inset:6px; border-radius:var(--radius); border:1px solid var(--border); pointer-events:none; opacity:.7;
+}
 .avatar{width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg, var(--acc), var(--acc-2)); box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center; color:#001; font:700 34px var(--mono)}
 .hero h1{font-size:clamp(26px, 4vw, 34px); margin:0 0 6px}
 .hero p.role{margin:0; color:var(--muted)}
@@ -57,6 +76,13 @@ h2 .dot{width:10px; height:10px; background:var(--acc); border-radius:50%}
 .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
 .btn{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--acc), var(--acc-2)); color:#091017; border:none; padding:10px 14px; border-radius:12px; font-weight:700; box-shadow:var(--shadow)}
 .btn.secondary{background:transparent; color:var(--acc); border:1px solid var(--acc)}
+
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease;}
+.reveal.is-visible{opacity:1; transform:translateY(0);}
+.hero.reveal{transition-delay:.05s;}
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal.is-visible{opacity:1; transform:none;}
+}
 
 @media print{
   body{background:#fff}
