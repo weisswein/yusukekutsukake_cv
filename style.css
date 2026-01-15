@@ -25,7 +25,24 @@ a:hover{text-decoration:underline}
 header.hero{display:grid; grid-template-columns: 120px 1fr; gap:20px; align-items:center; margin:16px 0 28px}
 .avatar{width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg, var(--acc), var(--acc-2)); box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center; color:#001; font:700 34px var(--mono)}
 .hero h1{font-size:clamp(26px, 4vw, 34px); margin:0 0 6px}
-.hero p.role{margin:0; color:var(--muted)}
+.hero p.role{
+  display: inline-block;          /* 枠がテキストにフィット */
+  padding: 6px 12px;
+  margin: 0;
+  margin-top: 6px;
+
+  background: var(--chip);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+
+  max-width: 100%;                /* はみ出し防止 */
+  white-space: normal;            /* 長文は折り返す */
+  overflow-wrap: anywhere;        /* 記号/長語でも折る */
+}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
 .chip{padding:6px 10px; background:var(--chip); border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--muted)}
 
